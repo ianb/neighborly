@@ -1,4 +1,11 @@
 #!/usr/bin/env python
+
+## Fixup sys.path
+import os, sys
+parent = os.path.abspath(os.path.join(__file__, '../../'))
+if parent not in sys.path:
+    sys.path.insert(0, parent)
+
 from django.core.management import execute_manager
 try:
     import settings # Assumed to be in the same directory.
