@@ -14,9 +14,9 @@ else
 fi
 python virtualenv.py neighborly || exit 4
 cd neighborly
-./bin/pip install Django 
+./bin/pip install Django psycopg2
 mkdir src
 cd src
-git clone git@github.com:ianb/libcloud.git
+git clone git@github.com:ianb/neighborly.git
 cd ..
 
