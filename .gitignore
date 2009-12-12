@@ -1,1 +1,4 @@
 *.pyc
+setuptools-*.egg
+virtualenv.py
+*~
