@@ -2,11 +2,6 @@
 
 echo "This will setup the neighborly environment in ./neighborly"
 
-if [ -e ./neighborly ] ; then
-    echo "But no... that already exists!"
-    exit 2
-fi
-
 if [ ! -e virtualenv.py ] ; then
     wget http://bitbucket.org/ianb/virtualenv/raw/tip/virtualenv.py || exit 3
 else
@@ -19,4 +14,6 @@ mkdir src
 cd src
 git clone git@github.com:ianb/neighborly.git
 cd ..
+
+PGUSER=postgres createdb -T template_postgis neighborly
 
