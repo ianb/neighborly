@@ -1,4 +1,6 @@
 from neighborly.contact.models import User, Thread, Message
-from django.contrib import admin
+from django.contrib.gis import admin
 
-admin.site.register([User, Thread, Message])
+admin.site.register(User, admin.OSMGeoAdmin)
+admin.site.register(Thread, admin.OSMGeoAdmin)
+admin.site.register(Message, admin.OSMGeoAdmin)
