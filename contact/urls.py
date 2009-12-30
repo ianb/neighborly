@@ -3,6 +3,6 @@ from neighborly.contact import views
 
 urlpatterns = patterns(
     '',
-    (r'^/login', views.login),
+    (r'^login', views.login),
     (r'^$', views.home),
 )
