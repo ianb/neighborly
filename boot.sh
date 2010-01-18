@@ -93,6 +93,18 @@ if [ ! -L bin ] ; then
     ln -s lib/python/bin bin
 fi
 
+if [ ! -L static/admin-media ] ; then
+    pushd static
+    ln -s ../lib/python/django/contrib/admin/media admin-media
+    popd
+fi
+
+if [ ! -L static/media ] ; then
+    pushd static
+    ln -s ../src/neighborly-src/neighborly/media media
+    popd
+fi
+
 if ! which psql ; then
     echo "PostgreSQL does not appear to be installed, you must install it and the PostGIS extensions"
     exit 3
