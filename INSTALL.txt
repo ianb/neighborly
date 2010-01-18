@@ -40,6 +40,12 @@ You'll need ~/src/toppcloud/bin on your $PATH, or you can do:
 
     $ alias toppcloud="$HOME/src/toppcloud/bin/toppcloud"
 
+toppcloud likes to be configured when it is first started, so just run
+"toppcloud" and answer its questions.  The questions primarily relate
+to setting up new production environments, and you can just ignore
+them (it writes these settings in ~/.toppcloud.conf so you can edit
+them later).
+
 Next, run boot.sh again:
 
     $ ./boot.sh ~/src/neighborly-app/
