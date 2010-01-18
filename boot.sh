@@ -73,7 +73,7 @@ fi
 
 if [ ! -L app.ini ] ; then
     rm app.ini
-    ln -s src/neighborly/toppcloud-app.ini app.ini
+    ln -s src/neighborly-src/neighborly/toppcloud-app.ini app.ini
 fi
 
 if [ ! -e lib/python/.git ] ; then
