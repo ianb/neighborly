@@ -63,10 +63,10 @@ echo "This will setup the neighborly environment in $DIR"
 
 toppcloud init $DIR
 pushd $DIR
-mkdir -p src/neighborly
-if [ ! -e src/neighborly/.git ] ; then
+mkdir -p src/neighborly-src
+if [ ! -e src/neighborly-src/neighborly.git ] ; then
     ## FIXME: this might fail if they don't have commit or authorization for ssh git access:
-    git clone git@github.com:ianb/neighborly.git src/neighborly
+    git clone git@github.com:ianb/neighborly.git src/neighborly-src/neighborly
 else
     echo "Neighborly has already been checked out into $DIR/src/neighborly"
 fi
