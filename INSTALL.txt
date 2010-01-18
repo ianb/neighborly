@@ -1,0 +1,67 @@
+How to install:
+
+First, get yourself a Linux or Mac machine.  Windows is going to be
+too hard.  If you are using Windows, install Ubuntu using VMWare,
+VirtualBox, or something like that.
+
+Next, there are some prerequesites.  These are listed here:
+http://code.djangoproject.com/wiki/GeoDjangoInstall (don't worry about
+installing GeoDjango itself, just these prerequesites).  We are using
+PostgreSQL with PostGIS for this project.
+
+Once you have PostGIS installed you still don't have a PostGIS-enabled
+table.  Typically you'll do something like this:
+
+    $ createdb template_postgis
+    $ createlang --dbname=template_postgis plpgsql
+    $ psql template_postgis < path/to/postgis-files/lwpostgis.sql
+    $ psql template_postgis < path/to/postgis-files/spatial_ref_sys.sql
+
+Then when you need to create a new PostGIS-enabled database, you'll
+do:
+
+    $ createdb my_new_db -T template_postgis
+
+Also make sure you have git installed.
+
+Now that you have that installed, you can install the software itself.
+Grab the boot.sh file; don't check this repository out, just grab that
+one file, from:
+
+  http://github.com/ianb/neighborly/raw/master/boot.sh
+
+First we'll use it to install toppcloud (http://toppcloud.colorstudy.com):
+
+    $ chmod +x boot.sh
+    $ ./boot.sh setup-toppcloud ~/src/toppcloud
+    ... stuff happens...
+
+You'll need ~/src/toppcloud/bin on your $PATH, or you can do:
+
+    $ alias toppcloud="$HOME/src/toppcloud/bin/toppcloud"
+
+Next, run boot.sh again:
+
+    $ ./boot.sh ~/src/neighborly-app/
+
+This check out all the libraries for the application.  Now you'll be
+able to run the server like:
+
+    $ cd ~/src/neighborly-app/
+    $ ./bin/django-admin.py syncdb
+    ... stuff happens ...
+    $ toppcloud serve .
+
+Note that if you run ~/src/neighborly-app/bin/python that it will
+start a Python environment with everything configured, allowing you to
+access models and run tests.
+
+If you need to change your database settings, edit ~/.toppcloud.conf,
+adding something like:
+
+    [devel]
+    postgis.dbname = test_neighborly
+    postgis.user = postgres
+    postgis.password = s3cr3t
+    postgis.host = localhost:5433
+
