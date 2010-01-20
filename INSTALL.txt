@@ -7,7 +7,11 @@ VirtualBox, or something like that.
 Next, there are some prerequesites.  These are listed here:
 http://code.djangoproject.com/wiki/GeoDjangoInstall (don't worry about
 installing GeoDjango itself, just these prerequesites).  We are using
-PostgreSQL with PostGIS for this project.
+PostgreSQL with PostGIS for this project.  Note if using Ubuntu that
+there are some problems using PostGIS with PostgreSQL 8.4, it's
+better to use 8.3 (the package postgresql-8.3-postgis).  8.3 runs on
+port 5433 instead of the standard 5432, so you'll have to edit
+~/.toppcloud.conf and set [devel] postgis.host = :5433
 
 Once you have PostGIS installed you still don't have a PostGIS-enabled
 table.  Typically you'll do something like this:

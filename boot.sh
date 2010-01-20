@@ -20,7 +20,7 @@ if [ "$1" = "setup-toppcloud" ] ; then
     fi
     get_virtualenv
     python2.6 virtualenv.py "$DIR"
-    $DIR/bin/pip install http://bitbucket.org/ianb/toppcloud/raw/tip/requirements.txt
+    $DIR/bin/pip install -r http://bitbucket.org/ianb/toppcloud/raw/tip/requirements.txt
     echo
     echo "toppcloud installed"
     echo "Add $DIR/bin to your path, like:"
