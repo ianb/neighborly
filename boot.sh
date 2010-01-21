@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+if [ "$USER" = "root" ] ; then
+    echo "You appear to be running this as root.  That is not necessary."
+    echo "It is strongly recommended that you run this as a normal user"
+    echo "(whatever account you will be using to develop)."
+    echo -n "^C to abort, or enter to continue anyway... "
+    read X
+fi
+
 get_virtualenv () {
     if [ ! -e 'virtualenv.py' ] ; then
         echo -n "Fetching virtualenv..."
