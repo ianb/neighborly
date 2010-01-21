@@ -28,6 +28,12 @@ do:
 
 Also make sure you have git installed.
 
+Everything from here on out should be run as the user you will be
+developing as.  Nothing has to be run as root (except installing
+PostgreSQL).  Also nothing from here on out will write to any location
+except the directories you provide.  If something goes wrong you can
+delete these directories and start over from scratch.
+
 Now that you have that installed, you can install the software itself.
 Grab the boot.sh file; don't check this repository out, just grab that
 one file, from:
