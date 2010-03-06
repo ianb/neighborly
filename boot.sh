@@ -65,6 +65,11 @@ if ! which git ; then
     exit 3
 fi
 
+if ! which hg ; then
+    echo "You must install hg first"
+    exit 3
+fi
+
 DIR="$1"
 
 echo "This will setup the neighborly environment in $DIR"
