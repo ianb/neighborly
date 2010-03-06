@@ -11,7 +11,7 @@ PostgreSQL with PostGIS for this project.  Note if using Ubuntu that
 there are some problems using PostGIS with PostgreSQL 8.4, it's
 better to use 8.3 (the package postgresql-8.3-postgis).  8.3 runs on
 port 5433 instead of the standard 5432, so you'll have to edit
-~/.toppcloud.conf and set [devel] postgis.host = :5433
+~/.silverlining.conf and set [devel] postgis.port = 5433
 
 Once you have PostGIS installed you still don't have a PostGIS-enabled
 table.  Typically you'll do something like this:
@@ -40,20 +40,20 @@ one file, from:
 
   http://github.com/ianb/neighborly/raw/master/boot.sh
 
-First we'll use it to install toppcloud (http://toppcloud.colorstudy.com):
+First we'll use it to install Silver Lining (http://cloudsilverlining.org):
 
     $ chmod +x boot.sh
-    $ ./boot.sh setup-toppcloud ~/src/toppcloud
+    $ ./boot.sh setup-silver ~/src/silverlining
     ... stuff happens...
 
-You'll need ~/src/toppcloud/bin on your $PATH, or you can do:
+You'll need ~/src/silverlining/bin on your $PATH, or you can do:
 
-    $ alias toppcloud="$HOME/src/toppcloud/bin/toppcloud"
+    $ alias silver="$HOME/src/silverlining/bin/silver"
 
-toppcloud likes to be configured when it is first started, so just run
-"toppcloud" and answer its questions.  The questions primarily relate
+Silver Lining likes to be configured when it is first started, so just
+run "silver" and answer its questions.  The questions primarily relate
 to setting up new production environments, and you can just ignore
-them (it writes these settings in ~/.toppcloud.conf so you can edit
+them (it writes these settings in ~/.silverlining.conf so you can edit
 them later).
 
 Next, run boot.sh again:
@@ -66,14 +66,14 @@ able to run the server like:
     $ cd ~/src/neighborly-app/
     $ ./bin/django-admin.py syncdb
     ... stuff happens ...
-    $ toppcloud serve .
+    $ silver serve .
 
 Note that if you run ~/src/neighborly-app/bin/python that it will
 start a Python environment with everything configured, allowing you to
 access models and run tests.
 
-If you need to change your database settings, edit ~/.toppcloud.conf,
-adding something like:
+If you need to change your database settings, edit
+~/.silverlining.conf, adding something like:
 
     [devel]
     postgis.dbname = test_neighborly
