@@ -1,7 +1,7 @@
 # Django settings for neighborly project.
 import os
 
-DEBUG = not os.environ['TOPPCLOUD'].startswith('toppcloud/')
+DEBUG = not os.environ['SILVER_VERSION'].startswith('silverlining/')
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
