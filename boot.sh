@@ -18,19 +18,19 @@ get_virtualenv () {
     fi
 }
 
-if [ "$1" = "setup-toppcloud" ] ; then
+if [ "$1" = "setup-silver" ] ; then
     shift
     DIR="$1"
     if [ -z "$DIR" ] ; then
         echo "You did not give a DIR argument"
-        echo "usage: $(basename $0) setup-toppcloud DIR"
+        echo "usage: $(basename $0) setup-silver DIR"
         exit 2
     fi
     get_virtualenv
     python2.6 virtualenv.py "$DIR"
-    $DIR/bin/pip install -r http://bitbucket.org/ianb/toppcloud/raw/tip/requirements.txt
+    $DIR/bin/pip install -r http://bitbucket.org/ianb/silverlining/raw/tip/requirements.txt
     echo
-    echo "toppcloud installed"
+    echo "silverlining installed"
     echo "Add $DIR/bin to your path, like:"
     echo "    \$ export PATH=\"$DIR/bin:$PATH\""
     echo "You may want to put this in ~/.bash_profile"
@@ -44,18 +44,18 @@ if [ "$1" = "setup-toppcloud" ] ; then
     else
         echo "Alright, do it yourself then..."
     fi
-    echo "Now we will configure toppcloud..."
-    $DIR/bin/toppcloud
+    echo "Now we will configure Silver Lining..."
+    $DIR/bin/silver
     exit
 fi
 
-if ! which toppcloud ; then
-    if [ -e ~/.toppcloud.conf ] ; then
-        echo "It appears toppcloud is (probably) installed, but not present on \$PATH"
-        echo "Make sure to put the TOPPCLOUD_DIR/bin on your \$PATH"
-        echo "Or reinstall toppcloud with ./boot.sh setup-toppcloud TOPPCLOUD_DIR"
+if ! which silver ; then
+    if [ -e ~/.silverlining.conf ] ; then
+        echo "It appears silver is (probably) installed, but not present on \$PATH"
+        echo "Make sure to put the SILVERLINING_DIR/bin on your \$PATH"
+        echo "Or reinstall toppcloud with ./boot.sh setup-silver SILVERLINING_DIR"
     else
-        echo "toppcloud is not setup on your environment; please call ./boot.sh setup-toppcloud TOPPCLOUD_DIR"
+        echo "silver is not setup on your environment; please call ./boot.sh setup-silver SILVERLINING_DIR"
     fi
     exit 2
 fi
@@ -69,7 +69,7 @@ DIR="$1"
 
 echo "This will setup the neighborly environment in $DIR"
 
-toppcloud init $DIR
+silver init $DIR
 pushd $DIR
 mkdir -p src/neighborly-src
 if [ ! -e src/neighborly-src/neighborly.git ] ; then
@@ -81,7 +81,7 @@ fi
 
 if [ ! -L app.ini ] ; then
     rm app.ini
-    ln -s src/neighborly-src/neighborly/toppcloud-app.ini app.ini
+    ln -s src/neighborly-src/neighborly/silver-app.ini app.ini
 fi
 
 if [ ! -e lib/python/.git ] ; then
@@ -123,6 +123,7 @@ if [ -z "$T_POSTGIS" ] ; then
     echo "It appears the template_postgis database does not exist"
     echo "Please create it, something like:"
     echo "    \$ createdb template_postgis"
+    echo "    \$ createlang pgplsql template_postgis"
     echo "    \$ psql template_postgis < PATH_TO_POSTGIS_FILES/lwpostgis.sql"
     echo "    \$ psql template_postgis < PATH_TO_POSTGIS_FILES/spatial_ref_sys.sql"
     exit 3
