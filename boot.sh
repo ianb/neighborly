@@ -71,6 +71,10 @@ if ! which hg ; then
 fi
 
 DIR="$1"
+if [ -z "$DIR" ] ; then
+    echo "You must give a directory to install into"
+    exit 2
+fi
 
 echo "This will setup the neighborly environment in $DIR"
 
