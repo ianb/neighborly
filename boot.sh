@@ -37,8 +37,9 @@ if [ "$1" = "setup-silver" ] ; then
     echo "What the heck, I can do that for you.  Enter 'y' to have me do so:"
     read ANSWER
     if [ "$ANSWER" = y ] ; then
+        DIR_ABS="$(python -c 'import os, sys; print os.path.abspath(sys.argv[1])' $DIR)"
         echo "# Added by Neighborly's boot.sh" >> ~/.bash_profile
-        echo "export PATH=\"$DIR/bin:\$PATH\"" >> ~/.bash_profile
+        echo "export PATH=\"$DIR_ABS/bin:\$PATH\"" >> ~/.bash_profile
         echo "Note: you must do:    source ~/.bash_profile"
         echo "before this path change will be made active"
     else
@@ -78,12 +79,16 @@ fi
 
 echo "This will setup the neighborly environment in $DIR"
 
+REPO_BASE="git://github.com/"
+# Another option would be:
+#REPO_BASE="git@github.com:"
+
 silver init $DIR
 pushd $DIR
 mkdir -p src/neighborly-src
 if [ ! -e src/neighborly-src/neighborly.git ] ; then
     ## FIXME: this might fail if they don't have commit or authorization for ssh git access:
-    git clone git@github.com:ianb/neighborly.git src/neighborly-src/neighborly
+    git clone ${REPO_BASE}ianb/neighborly.git src/neighborly-src/neighborly
 else
     echo "Neighborly has already been checked out into $DIR/src/neighborly"
 fi
@@ -98,7 +103,7 @@ if [ ! -e lib/python/.git ] ; then
         echo "Removing lib/python"
         rm -r lib/python
     fi
-    git clone git@github.com:ianb/neighborly-lib.git lib/python
+    git clone ${REPO_BASE}:ianb/neighborly-lib.git lib/python
 else
     echo "neighborly-lib has already been checked out into $DIR/lib/python"
 fi
