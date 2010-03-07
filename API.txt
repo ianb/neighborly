@@ -1,0 +1,126 @@
+API:
+
+POST /user: create a user account
+  {"email": "email@address.com",
+   "name": "My Name",
+   "address": "My Address",
+   "lat_long": [lat, long]
+  }
+Response:
+200 OK:
+  {all data,
+   "user_url": "/user/15"
+  }
+  Location: /user/15
+400 Bad Request:
+  {"error_message": "You did something wrong",
+   "fields": {"email": {"error": "bad email address",
+                        "value": "email@address.com"},
+              "name": {"value": "My Name"}
+             }
+  }
+
+GET /user/{user_id}
+Response:
+200 OK: user data
+  what is POSTed to /user, plus "user_url"
+
+GET /user/15/topics - list of topics (threads)
+  {"topics": [
+      {"url": "/topic/3",
+       "center": [lat, long],
+       "subject": "Free flowers",
+       "author": {"name": "Bob",
+                  "address": "1324 N 10th",
+                  "user_url": "/user/12"},
+       "last_updated": "20100104T04:23:53",
+       "messages": 5
+      }
+    ], ...
+    "next_page": "/user/15/topics?page=2"
+  }
+POST /user/15/topics - compose new topic:
+Request body:
+  {"subject": "Lost cat",
+   "body": "I lost my cat"}
+
+GET /user/15/topics?since=timestamp
+Response: all topics updated since timestamp
+
+GET /topic/3 - list of messages in a topic:
+Response:
+  {...everything from the GET...
+   "sticky": true,
+   "messages": [
+      {"url": "/topic/3/message/5",
+       "author": ...
+       "posted": "timestamp",
+       "body": "message text",
+       "in_reply_to": "/topic/3/message/2" # maybe?
+      }
+    ...]
+  }
+PUT /topic/3
+Edit one piece of the document:
+  {"sticky": false}
+POST /topic/3 - add a message to a topic
+Request body:
+  {"body": "message text"}
+Response:
+  {"url": "/topic/3/message/6", ...}
+
+GET /user/15/neighbors - list neighbors
+  {"neighbors": [
+    {"user_url": "/user/17",
+     "name": "Bob", ...}
+    ]
+  }
+GET /user/15/neighbors?since=timestamp
+
+GET /user/17 - show info on one user
+  {"name": "Bob",
+   "address": "31xx 10th Ave",
+   "lat_long": [lat, long],
+  }
+
+GET /user/15/user-prefs
+Response:
+  {"no_contact_users": ["/users/17"],
+   "invisible_to_users": ["/user/21"],
+   "circle_discussion_limit": 100}
+PUT /user/15/user-prefs/ignore-list
+POST /user/15/user-prefs/ignore-list #?
+  {"ignore_users": ...users to add...}
+
+POST /user/15/invite
+  {"invite": [{"email": "friend1@email.com", "name": "Friend"}],
+   "message": "Hi, try this!"}
+
+GET/PUT /user/15/exposure
+  {"circle_limit": 25,
+   "name": {"expose": "public"},
+   "address": {"expose": "public", "display": "block"},
+   "phone": {"expose": "neighbors", "limit": 100}, # limit?
+   "photo": {"expose": "none"},
+  }
+
+GET /user/15/local-link
+  {"links":
+   [{"url": "http://ppna.org",
+     "author_url": "/user/17",
+     "link_url": "/local-links/54",
+     "title": "Powderhorn Neighbors Association"}]
+  }
+GET/PUT/DELETE /local-link/54 - see/edit/delete link
+POST /local-link - create new link
+
+email settings
+advertisement admin
+block captain / superuser view
+other admin views
+digest email
+intro email
+response email after user posts
+invitation email
+confirm invitation
+exposure prefs
