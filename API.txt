@@ -9,7 +9,7 @@ POST /user: create a user account
 Response:
 200 OK:
   {all data,
-   "user_url": "/user/15"
+   "url": "/user/15"
   }
   Location: /user/15
 400 Bad Request:
@@ -23,7 +23,7 @@ Response:
 GET /user/{user_id}
 Response:
 200 OK: user data
-  what is POSTed to /user, plus "user_url"
+  what is POSTed to /user, plus "url"
 
 GET /user/15/topics - list of topics (threads)
   {"topics": [
