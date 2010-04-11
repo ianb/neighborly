@@ -3,7 +3,7 @@ from django.contrib.gis.db import models
 class User(models.Model):
     """This represents one user"""
     # The name, as it displays:
-    display_name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     # The user's primary email address (destination address)
     email = models.EmailField()
     # The hash of the user's password:
@@ -45,7 +45,7 @@ class UserService(models.Model):
     service_name = models.CharField(max_length=100)
     url = models.URLField()
 
-class Thread(models.Model):
+class Topic(models.Model):
     """This is the head of a thread (though it does not contain the
     first message)"""
     first_message = models.ForeignKey(
@@ -64,7 +64,7 @@ class Thread(models.Model):
 class Message(models.Model):
     """One message, email or via web"""
     # The thread this belongs to;
-    thread = models.ForeignKey(Thread)
+    topic = models.ForeignKey(Topic)
     # The author of the message:
     author_id = models.ForeignKey(User)
     # The subject field of the message:

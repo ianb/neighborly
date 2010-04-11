@@ -6,18 +6,17 @@ Replace these with more appropriate tests for your application.
 """
 
 from django.test import TestCase
+from django.test.client import Client
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.failUnlessEqual(1 + 1, 2)
+class ContactTest(TestCase):
+    def test_details(self):
+        client = Client()
+        response = client.get('/user/3')
+        self.failUnlessEqual(response.status_code, 404)
 
-__test__ = {"doctest": """
-Another way to test that 1 + 1 is equal to 2.
+    def test_index(self):
+        client = Client()
+        response = client.get('/topic/8')
+        self.failUnlessEqual(response.status_code, 404)
 
->>> 1 + 1 == 2
-True
-"""}
 

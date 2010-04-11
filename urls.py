@@ -1,10 +1,21 @@
 from django.conf.urls.defaults import *
 
+from piston.resource import Resource
+from piston.authentication import HttpBasicAuthentication
+
+from neighborly.contact.handlers import UserHandler, TopicHandler
+
 from django.contrib.gis import admin
 admin.autodiscover()
 
+user_resource = Resource(handler=UserHandler)
+topic_resource = Resource(handler=TopicHandler)
+
 urlpatterns = patterns(
     '',
+    url(r'^user/(?P<user_id>\d+)$', user_resource),
+    url(r'^topic/(?P<topic_id>\d+)$', topic_resource),
+
     # Example:
     # (r'^neighborly/', include('neighborly.foo.urls')),
 
