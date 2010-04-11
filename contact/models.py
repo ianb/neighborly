@@ -22,9 +22,9 @@ class User(models.Model):
     location = models.PointField()
 
     # The radius of things this person wants to listen to:
-    listen_radius_members = models.IntField()
+    listen_radius_members = models.IntegerField()
     # The radius where the person will display their contact info:
-    display_in_index_members = models.IntField()
+    display_in_index_members = models.IntegerField()
     # When the user was created/modified
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -58,10 +58,10 @@ class Topic(models.Model):
     location = models.PointField()
     # This represents the number of people that the initiator was
     # talking to at the time they wrote this topic:
-    person_limit = models.IntField()
+    person_limit = models.IntegerField()
     # Distance (in meters) that the topic applies to (this is
     # calculated at the time of send based on person_limit):
-    distance_limit = models.IntField()
+    distance_limit = models.IntegerField()
     # Delete topics are marked, not actually deleted:
     deleted = models.BooleanField(default=False)
 
@@ -97,5 +97,5 @@ class QuestionAnswer(models.Model):
     answered = models.DateTimeField()
     # These are optional conversions of the question into an int or date,
     # to ease querying (NULL when not applicable):
-    #int_version = models.IntField()
+    #int_version = models.IntegerField()
     #date_version = models.DateTimeField()

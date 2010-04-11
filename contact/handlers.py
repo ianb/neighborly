@@ -45,7 +45,7 @@ class UserHandler(BaseHandler):
 
 class TopicHandler(BaseHandler):
     allowed_methods = ('GET', 'PUT', 'DELETE')
-    fields = ('url', 'center', 'subject', 'author', 'last_updated', 'messages') # author=Topic.initiator
+    fields = ('url', 'center', 'subject', 'initiator', 'last_updated', 'messages')
     exclude = ('id', 'first_message', '')
     model = Topic
 
@@ -66,4 +66,3 @@ class TopicHandler(BaseHandler):
         # check that authenticated user is topic initiator or admin
         topic.delete()
         return rc.DELETED
-
