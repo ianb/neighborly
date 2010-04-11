@@ -7,30 +7,34 @@ class User(models.Model):
     # The user's primary email address (destination address)
     email = models.EmailField()
     # The hash of the user's password:
-    password_hash = models.CharField(max_length=40)
+    password_hash = models.CharField(max_length=40, null=True)
     # A free-text listing of the profile information (an About):
-    profile_info = models.TextField()
+    profile_info = models.TextField(null=True)
     # The street address (number, street name):
-    street_address = models.CharField(max_length=255)
+    street = models.CharField(max_length=255, null=True)
     # city, state, country, zip:
-    city = models.CharField(max_length=100)
-    state = models.CharField(max_length=10)
-    country = models.CharField(max_length=10)
-    postal_code = models.CharField(max_length=10)
+    city = models.CharField(max_length=100, null=True)
+    state = models.CharField(max_length=10, null=True)
+    country = models.CharField(max_length=10, null=True)
+    postal_code = models.CharField(max_length=10, null=True)
 
     # The geocoded lat/long location of the person:
-    location = models.PointField()
+    location = models.PointField(null=True)
 
     # The radius of things this person wants to listen to:
-    listen_radius_members = models.IntegerField()
+    listen_radius_members = models.IntegerField(null=True)
     # The radius where the person will display their contact info:
-    display_in_index_members = models.IntegerField()
+    display_in_index_members = models.IntegerField(null=True)
     # When the user was created/modified
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    last_login = models.DateTimeField()
+    last_login = models.DateTimeField(auto_now_add=True)
 
     objects = models.GeoManager()
+
+    @property
+    def resource_url(self):
+        return '/user/%s' % self.id
 
 class ExtraEmail(models.Model):
     """These are additional email addresses that should be recognized
