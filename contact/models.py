@@ -16,21 +16,20 @@ class User(models.Model):
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=10)
     country = models.CharField(max_length=10)
-    zip = models.CharField(max_length=10)
+    postal_code = models.CharField(max_length=10)
 
     # The geocoded lat/long location of the person:
     location = models.PointField()
 
     # The radius of things this person wants to listen to:
-    listen_radius_miles = models.DecimalField(
-        max_digits=5, decimal_places=3)
+    listen_radius_members = models.IntField()
     # The radius where the person will display their contact info:
-    display_in_index_radius_miles = models.DecimalField(
-        max_digits=5, decimal_places=3)
+    display_in_index_members = models.IntField()
     # When the user was created/modified
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    
+    last_login = models.DateTimeField()
+
     objects = models.GeoManager()
 
 class ExtraEmail(models.Model):
@@ -57,9 +56,14 @@ class Topic(models.Model):
     subject = models.TextField()
     # The location (probably of the initiator):
     location = models.PointField()
-    # Where the initiator said this message was relevant:
-    relevance_radius_miles = models.DecimalField(
-        max_digits=5, decimal_places=3)
+    # This represents the number of people that the initiator was
+    # talking to at the time they wrote this topic:
+    person_limit = models.IntField()
+    # Distance (in meters) that the topic applies to (this is
+    # calculated at the time of send based on person_limit):
+    distance_limit = models.IntField()
+    # Delete topics are marked, not actually deleted:
+    deleted = models.BooleanField(default=False)
 
 class Message(models.Model):
     """One message, email or via web"""
@@ -76,3 +80,22 @@ class Message(models.Model):
     created = models.DateTimeField()
     # If this was an email, this will be the filename where the complete email is kept:
     raw_email_filename = models.CharField(max_length=255)
+    # Deleted messages are marked, not actually deleted
+    deleted = models.BooleanField(default=False)
+
+class Question(models.Model):
+    question = models.TextField()
+    # User who created this question:
+    initiator = models.ForeignKey(User)
+    # This is a module:obj_name that will be used to validate and
+    # process answers:
+    #python_hook = models.TextField()
+
+class QuestionAnswer(models.Model):
+    user = models.ForeignKey(User)
+    answer = models.TextField()
+    answered = models.DateTimeField()
+    # These are optional conversions of the question into an int or date,
+    # to ease querying (NULL when not applicable):
+    #int_version = models.IntField()
+    #date_version = models.DateTimeField()
