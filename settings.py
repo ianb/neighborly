@@ -52,7 +52,7 @@ MEDIA_URL = '/media'
 ADMIN_MEDIA_PREFIX = '/admin-media/'
 
 # Make this unique, and don't share it with anybody.
-from tcsupport.secret import get_secret
+from silversupport.secret import get_secret
 SECRET_KEY = get_secret()
 
 # List of callables that know how to import templates from various sources.
@@ -85,3 +85,7 @@ INSTALLED_APPS = (
     'django.contrib.gis',
     'neighborly.contact',
 )
+
+TEST_RUNNER='django.contrib.gis.tests.run_tests'
+POSTGIS_SQL_PATH='/usr/share/postgresql/8.4'
+POSTGIS_TEMPLATE='template_postgis'
